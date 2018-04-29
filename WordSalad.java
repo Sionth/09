@@ -55,15 +55,32 @@ public class WordSalad implements Iterable<String> {
         }
 
     }
-
+    /**
+     * Implementation of Iterator class used to iterate across WordNodes.
+     *
+     * @return java.util.Iterator<String> String iterator object.
+     */
     public java.util.Iterator<String> iterator() {
         return new java.util.Iterator<String>() {
+            /**
+             * Sets the current WordNode to the first node.
+             */
             private WordNode current = first;
-
+            /**
+             * Checks if the current WordNode is empty.
+             *
+             * @return Returns true if the current node is not null or returns
+             * false if the current node is null.
+             */
             public boolean hasNext() {
                 return current != null;
             }
-
+            /**
+             * Returns the word held in the current node, then changes the
+             * current node to point to the next node.
+             *
+             * @return result The word in the current node.
+             */
             public String next() {
                 String result = current.word;
                 current = current.next;
@@ -75,7 +92,11 @@ public class WordSalad implements Iterable<String> {
             }
         };
     }
-
+    /**
+     * Shows a string representation of word blocks in WordSalad object.
+     *
+     * @return result String representation of block(s) of words.
+     */
     public String toString() {
         StringBuilder result = new StringBuilder("[");
         WordNode node = first;
