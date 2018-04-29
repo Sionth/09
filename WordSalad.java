@@ -97,7 +97,7 @@ public class WordSalad implements Iterable<String> {
     * like when dealing out cards
     *
     * @param k The number of blocks to distribute into
-    * @return an array of WordSalads
+    * @return an array of distributed WordSalads
     */
     public WordSalad[] distribute(int k) {
         // make use of modulo operator to determine which group to put a word in
@@ -115,7 +115,12 @@ public class WordSalad implements Iterable<String> {
         }
         return distribution;
     }
-
+    /**
+     * Chops a block of words into k equal, or nearly equal, blocks of words.
+     *
+     * @param k the number of blocks to chop into.
+     * @return result chopped array of k WordSalads.
+     */
     public WordSalad[] chop(int k) {
         //establish lengths of each WordSalad item
         ArrayList<Integer> lengths = new ArrayList<>();
@@ -152,7 +157,7 @@ public class WordSalad implements Iterable<String> {
         for (int i = 0; i < result.length; i++) {
             result[i] = new WordSalad();
         }
-        
+
 
         pointer = this.iterator();
         for (int i = 0; i < lengths.size(); i++) {
@@ -164,6 +169,61 @@ public class WordSalad implements Iterable<String> {
         }
         return result;
     }
+//   Other Chop Method.
+//   public WordSalad[] chop(int k) {
+//   WordSalad[] choppedSalad = new WordSalad[k];
+//   Iterator<String> point = this.iterator();
+//   int length = 0;
+//
+//   //Instantiate k new word salad objects
+//   for(int i = 0; i < k; i++){
+//     choppedSalad[i] = new WordSalad();
+//   }
+//   //Find length of input Wordsalad Object
+//   while(point.hasNext()){
+//     point.next();
+//     length++;
+//   }
+//   //If length can be split evenly across k word salad objects.
+//   if(length % k == 0){
+//
+//     int blockLength = (length/k);
+//     WordNode currentNode = this.first;
+//
+//     for(int i = 0; i < k; i++){
+//       for(int j = 0; j < blockLength; j++){
+//         choppedSalad[i].addLast(currentNode.word);
+//         currentNode = currentNode.next;
+//       }
+//     }
+//     return choppedSalad;
+//   //If length cannot be evenly split across k wordsalad objects.
+//   }else{
+//     int blockLengthStart = (length/k) + 1;
+//     int blockLengthStartNum = (length%k);
+//     WordNode currentNode = this.first;
+//
+//     for(int choppedSaladIndex = 0; choppedSaladIndex < blockLengthStartNum; choppedSaladIndex++){
+//       for(int j = 0; j < blockLengthStart; j++){
+//         choppedSalad[choppedSaladIndex].addLast(currentNode.word);
+//         currentNode = currentNode.next;
+//         }
+//     }
+//
+//     int blockLengthRest = (length/k);
+//     int blockLengthRestNum = k - blockLengthStartNum;
+//
+//       for(int h = 0; h < blockLengthRestNum; h++){
+//         for(int j = 0; j < blockLengthRest; j++){
+//           choppedSalad[choppedSaladIndex].addLast(currentNode.word);
+//           currentNode = currentNode.next;
+//       }
+//       choppedSaladIndex++;
+//     }
+//     return choppedSalad;
+//   }
+//
+// }
 
     public WordSalad[] split(int k) {
         // we want to distribute the word salad, then merge the remainder, then repeat the distribute until we've run out of words
@@ -192,7 +252,18 @@ public class WordSalad implements Iterable<String> {
         }
         return finalPass;
     }
-
+    /**
+      * Merges blocks of words into a single block of words.
+      *
+      * Takes the n'th word from each block until all blocks are empty.
+      * If a block is emptied it is then skipped in subsequent rounds.
+      *
+      * Opposite of distribute, so merging a distributed text will result in
+      * the same original text.
+      *
+      * @param blocks An array of WordSalad blocks of words to be merged.
+      * @return merged WordSalad object of merged blocks of words.
+      */
     public static WordSalad merge(WordSalad[] blocks) {
         // The opposite of distribute
         WordSalad merged = new WordSalad();
@@ -213,7 +284,15 @@ public class WordSalad implements Iterable<String> {
         }
         return merged;
     }
-
+    /**
+     * Joins blocks of words into a single block of words.
+     *
+     * Opposite of chop, so joining a chopped text results in the same original
+     * text.
+     *
+     * @param blocks Array of WordSalad blocks to be joined.
+     * @return joined Single WordSalad object containing joined blocks of words.
+     */
     public static WordSalad join(WordSalad[] blocks) {
         // The opposite of Chop
         WordSalad joined = new WordSalad();
